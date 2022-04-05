@@ -1069,6 +1069,28 @@ export default class Viewer extends Component {
             });
 
 
+            // MATERIAL FOR SOCIAL MEDIA LOGOS
+            var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
+            materialPlane.diffuseTexture = new BABYLON.Texture("https://cdn.vox-cdn.com/thumbor/SfyqZw6l_jidAYdkqYEis-Omdho=/0x0:1680x1050/1200x675/filters:focal(706x391:974x659):no_upscale()/cdn.vox-cdn.com/uploads/chorus_image/image/56414327/YTLogo_old_new_animation.0.gif", scene);
+            materialPlane.specularColor = new BABYLON.Color3(0, 0, 0);
+            materialPlane.intensity = 100000;
+            materialPlane.backFaceCulling = false;//Allways show the front and the back of an element
+
+
+
+
+            // SOCIAL MEDIA LOGOS
+
+
+            var youtubePanel = BABYLON.Mesh.CreatePlane("plane", 2, scene);
+            youtubePanel.rotation.y = -Math.PI / 2;
+            youtubePanel.material = materialPlane;
+            youtubePanel.position = new BABYLON.Vector3(-5, 2, -8)
+
+
+
+
+
 
 
 
@@ -1221,26 +1243,26 @@ export default class Viewer extends Component {
 
 
 
-            // var URL = "https://raw.githubusercontent.com/CharlesBreton99/me-project/master/src/assets/matrix.babylon"
+            var URL = "https://raw.githubusercontent.com/CharlesBreton99/me-project/master/src/assets/matrix.babylon"
 
-            // var matrixMeshSkeleton = null;
+            var matrixMeshSkeleton = null;
 
-            // BABYLON.SceneLoader.ImportMesh("", "", URL, scene, function (newMeshes) {
-            //     var mesh = newMeshes[1];
-            //     mesh.position = new BABYLON.Vector3(6, -10, -8)
-            //     mesh.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
-            //     mesh.rotation = new BABYLON.Vector3(Math.PI / 2, 0, Math.PI / 2);
+            BABYLON.SceneLoader.ImportMesh("", "", URL, scene, function (newMeshes) {
+                var mesh = newMeshes[1];
+                mesh.position = new BABYLON.Vector3(6, 1.1, -8)
+                mesh.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+                mesh.rotation = new BABYLON.Vector3(Math.PI / 2, 0, Math.PI / 2);
 
-            //     // gizmoManager.attachableMeshes = mesh;
-            //     // gizmoManager.attachToMesh(mesh);
-            //     // engine.hideLoadingUI();
-            //     mesh.checkCollisions = true;
+                // gizmoManager.attachableMeshes = mesh;
+                // gizmoManager.attachToMesh(mesh);
+                // engine.hideLoadingUI();
+                mesh.checkCollisions = true;
 
-            //     matrixMeshSkeleton = mesh;
+                matrixMeshSkeleton = mesh;
 
-            //     console.log(mesh)
-            //     console.log(matrixMeshSkeleton)
-            // }, function (evt) { });
+                console.log(mesh)
+                console.log(matrixMeshSkeleton)
+            }, function (evt) { });
 
 
             // matrixMeshSkeleton.isEnabled(false);
@@ -1514,7 +1536,7 @@ function StartButton() {
 
     var startDivText = document.createElement("span");
 
-    startDivText.textContent = "PRESS SPACEBAR";
+    startDivText.textContent = "CLICK SCREEN THEN PRESS SPACEBAR";
     startDivText.fontFamily = fontFamily
 
     startDivText.style.left = "0";
