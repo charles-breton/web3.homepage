@@ -22,6 +22,7 @@ export default function App() {
   return (
     <div className="App">
 
+
       <Modal title="My Modal" onClose={() => setShow(false)} show={show} />
 
       <Viewer onClose={() => setShow(true)} />
