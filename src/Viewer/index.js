@@ -1115,16 +1115,16 @@ export default class Viewer extends Component {
 
             var matrixNftList = [];
             var nftData01 = [];
-            nftData01.title = 'MATRIX #2028';
-            nftData01.url = 'https://niftys.com/_next/image?url=https%3A%2F%2Fd2yuebc8sj17lc.cloudfront.net%2Ffilters%3Aautojpg()%2Fv2-production-nfts%2F0x423e540cb46db0e4df1ac96bcbddf78a804647d8-2028&w=3840&q=75';
-            nftData01.linkUrl = 'https://niftys.com/nft/0x423e540cb46db0e4df1ac96bcbddf78a804647d8/2028'
+            nftData01.title = "MATRIX #2028";
+            nftData01.url = "https://niftys.com/_next/image?url=https%3A%2F%2Fd2yuebc8sj17lc.cloudfront.net%2Ffilters%3Aautojpg()%2Fv2-production-nfts%2F0x423e540cb46db0e4df1ac96bcbddf78a804647d8-2028&w=3840&q=75";
+            nftData01.linkUrl = "https://niftys.com/nft/0x423e540cb46db0e4df1ac96bcbddf78a804647d8/2028";
 
 
 
             var nftData02 = [];
-            nftData02.title = 'MATRIX #54144';
-            nftData02.url = 'https://niftys.com/_next/image?url=https%3A%2F%2Fd2yuebc8sj17lc.cloudfront.net%2Ffilters%3Aautojpg()%2Fv2-production-nfts%2F0x28e4b03bc88b59d25f3467b2252b66d4b2c43286-54144&w=3840&q=75'
-            nftData02.linkUrl = 'https://niftys.com/nft/0x28e4b03bc88b59d25f3467b2252b66d4b2c43286/54144'
+            nftData02.title = "MATRIX #54144";
+            nftData02.url = "https://niftys.com/_next/image?url=https%3A%2F%2Fd2yuebc8sj17lc.cloudfront.net%2Ffilters%3Aautojpg()%2Fv2-production-nfts%2F0x28e4b03bc88b59d25f3467b2252b66d4b2c43286-54144&w=3840&q=75"
+            nftData02.linkUrl = "https://niftys.com/nft/0x28e4b03bc88b59d25f3467b2252b66d4b2c43286/54144";
 
 
 
@@ -1140,13 +1140,13 @@ export default class Viewer extends Component {
                     // createItemCard(matrixNftList[i].url, matrixNftList[i].title, (i * -2) + initialPositionY, matrixNftList[i].linkUrl);
                     let nftCardData = createItemCard(matrixNftList[i].url, matrixNftList[i].title, (i * -2) + initialPositionY, matrixNftList[i].linkUrl);
                     // nftCardData.position.y = 0;
-                    console.log(typeof nftCardData);
+                    // console.log(typeof nftCardData);
                     nftList.push(nftCardData);
                 }
                 return nftList
             }
-
-            var nftCards = createMatrixItemCard();
+            var nftCards = []
+            nftCards = createMatrixItemCard();
             createMatrixItemCard();
 
 

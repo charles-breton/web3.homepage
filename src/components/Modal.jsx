@@ -7,6 +7,8 @@ const Modal = (props) => {
   const [title, setTitle] = useState("");
   const [iframe, setIframe] = useState("");
 
+  const [isOpen, setIsOpen] = useState("");
+
   const closeOnEscapeKeyDown = (e) => {
     if ((e.charCode || e.keyCode) === 27) {
       props.onClose();
@@ -15,6 +17,7 @@ const Modal = (props) => {
 
   useEffect(() => {
     var projectToDisplay = JSON.parse(localStorage.getItem("modalData"));
+    console.log(projectToDisplay);
     setTitle(projectToDisplay[0]);
     setIframe(projectToDisplay[1]);
     document.body.addEventListener("keydown", closeOnEscapeKeyDown);
@@ -25,7 +28,6 @@ const Modal = (props) => {
 
   useEffect(() => {
     var projectToDisplay = JSON.parse(localStorage.getItem("modalData"));
-
     setTitle(projectToDisplay[0]);
     setIframe(projectToDisplay[1]);
   });
