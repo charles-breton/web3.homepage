@@ -29,8 +29,10 @@ const Modal = (props) => {
 
   useEffect(() => {
     var projectToDisplay = JSON.parse(localStorage.getItem("modalData"));
-    setTitle(projectToDisplay[0]);
-    setIframe(projectToDisplay[1]);
+    if (projectToDisplay !== null) {
+      setTitle(projectToDisplay[0]);
+      setIframe(projectToDisplay[1]);
+    }
   });
 
   return ReactDOM.createPortal(
