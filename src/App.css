@@ -1,5 +1,17 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden
+}
+
+
 .App {
   text-align: center;
+  /* overflow: hidden;
+  overflow-y: hidden;
+  padding: 0;
+  margin: 0; */
 }
 
 .App-logo {
@@ -32,7 +44,68 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
+
+
+.iframeSetting {
+
+  src: "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FXjn3ZT4xK5hg6i0F30thOC%2FLONGEVITY-DESIGN%3Fnode-id%3D0%253A1";
+}
+
+
+
+
+
+/* 
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scaleX(1.1) scaleY(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+  font-family: sans-serif;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1rem 1.5rem;
+  width: 60%;
+  height: 60%;
+  border-radius: 0.5rem;
+  z-index: 99000 !important;
+}
+
+.close-button {
+  float: right;
+  width: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: lightgray;
+}
+
+.close-button:hover {
+  background-color: darkgray;
+}
+
+.show-modal {
+  opacity: 1;
+  visibility: hidden;
+  transform: scaleX(1.0) scaleY(1.0);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+} */
