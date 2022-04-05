@@ -16,7 +16,8 @@ const Modal = (props) => {
   };
 
   useEffect(() => {
-    // var projectToDisplay = JSON.parse(localStorage.getItem("modalData"));
+    localStorage.setItem("modalData", null);
+    var projectToDisplay = JSON.parse(localStorage.getItem("modalData"));
     // console.log(projectToDisplay);
     // setTitle(projectToDisplay[0]);
     // setIframe(projectToDisplay[1]);
@@ -28,8 +29,8 @@ const Modal = (props) => {
 
   useEffect(() => {
     var projectToDisplay = JSON.parse(localStorage.getItem("modalData"));
-    setTitle(projectToDisplay[0]);
-    setIframe(projectToDisplay[1]);
+    // setTitle(projectToDisplay[0]);
+    // setIframe(projectToDisplay[1]);
   });
 
   return ReactDOM.createPortal(
