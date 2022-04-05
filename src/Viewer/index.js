@@ -1258,19 +1258,29 @@ export default class Viewer extends Component {
                 // engine.hideLoadingUI();
                 mesh.checkCollisions = true;
 
-                matrixMeshSkeleton = mesh;
+                // matrixMeshSkeleton = mesh;
 
-                console.log(mesh)
-                console.log(matrixMeshSkeleton)
+                // console.log(mesh)
+                // console.log(matrixMeshSkeleton)
             }, function (evt) { });
 
 
             // matrixMeshSkeleton.isEnabled(false);
 
 
+            // var discordButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/discord-icon.babylon?token=GHSAT0AAAAAABTAYXFSW352YXRCX65O2DO6YSV3YUQ";
 
+            // BABYLON.SceneLoader.ImportMesh("", "", discordButton, scene, function (newMeshes) {
+            //     var mesh = newMeshes[0];
+            //     mesh.position = new BABYLON.Vector3(-6, 1.1, -8)
+            //     mesh.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+            //     mesh.rotation = new BABYLON.Vector3(Math.PI / 2, 0, Math.PI / 2);
 
-
+            //     // gizmoManager.attachableMeshes = mesh;
+            //     // gizmoManager.attachToMesh(mesh);
+            //     // engine.hideLoadingUI();
+            //     mesh.checkCollisions = true;
+            // }, function (evt) { });
 
 
             // var assetsManager = new BABYLON.AssetsManager(scene);
