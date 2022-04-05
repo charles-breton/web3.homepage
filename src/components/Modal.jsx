@@ -16,10 +16,10 @@ const Modal = (props) => {
   };
 
   useEffect(() => {
-    var projectToDisplay = JSON.parse(localStorage.getItem("modalData"));
-    console.log(projectToDisplay);
-    setTitle(projectToDisplay[0]);
-    setIframe(projectToDisplay[1]);
+    // var projectToDisplay = JSON.parse(localStorage.getItem("modalData"));
+    // console.log(projectToDisplay);
+    // setTitle(projectToDisplay[0]);
+    // setIframe(projectToDisplay[1]);
     document.body.addEventListener("keydown", closeOnEscapeKeyDown);
     return function cleanup() {
       document.body.removeEventListener("keydown", closeOnEscapeKeyDown);
