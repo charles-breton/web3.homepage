@@ -71,7 +71,41 @@ export default class Viewer extends Component {
         this.onSceneMount = (e) => {
             const { canvas, scene, engine } = e;
 
+            BABYLON.DefaultLoadingScreen.prototype.displayLoadingUI = function () {
+                if (document.getElementById("customLoadingScreenDiv")) {
+                    // Do not add a loading screen if there is already one
+                    document.getElementById("customLoadingScreenDiv").style.display = "initial";
+                    return;
+                }
+                this._loadingDiv = document.createElement("div");
+                this._loadingDiv.id = "customLoadingScreenDiv";
+                this._loadingDiv.innerHTML = "scene is currently loading";
+                var customLoadingScreenCss = document.createElement('style');
+                customLoadingScreenCss.type = 'text/css';
+                customLoadingScreenCss.innerHTML = `
+                #customLoadingScreenDiv{
+                    // background: url(../src//assets/loader.gif) center center no-repeat;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background-color: #f1f2f3;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                }
+                `;
+                document.getElementsByTagName('head')[0].appendChild(customLoadingScreenCss);
+                this._resizeLoadingUI();
+                window.addEventListener("resize", this._resizeLoadingUI);
+                document.body.appendChild(this._loadingDiv);
+            };
 
+            BABYLON.DefaultLoadingScreen.prototype.hideLoadingUI = function () {
+                document.getElementById("customLoadingScreenDiv").style.display = "none";
+                console.log("scene is now loaded");
+            }
             // Add Asset Manager
             // var assetsManager = new BABYLON.AssetsManager(scene);
 
