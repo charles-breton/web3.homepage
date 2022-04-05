@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as BABYLON from '@babylonjs/core';
 import BabylonScene from '../BabylonScene'; // import the component above linking to file we just created.
-import "@babylonjs/loaders/glTF";
+// import "@babylonjs/loaders/glTF";
 import "@babylonjs/loaders";
 
 
