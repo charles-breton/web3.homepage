@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as BABYLON from '@babylonjs/core';
 import BabylonScene from '../BabylonScene'; // import the component above linking to file we just created.
 // import "@babylonjs/loaders/glTF";
-import "@babylonjs/loaders";
+import '@babylonjs/loaders';
 
 
 import * as GUI from '@babylonjs/gui'
@@ -1281,22 +1281,33 @@ export default class Viewer extends Component {
             }, function (evt) { });
 
 
+
             // matrixMeshSkeleton.isEnabled(false);
 
 
-            // var discordButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/discord-icon.babylon?token=GHSAT0AAAAAABTAYXFSW352YXRCX65O2DO6YSV3YUQ";
+            var discordButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/discord.babylon";
+            var linkedinButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/linkedin.babylon";
+            var twitterButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/twitter.babylon";
+            var youtubeButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/youtube.babylon";
 
-            // BABYLON.SceneLoader.ImportMesh("", "", discordButton, scene, function (newMeshes) {
-            //     var mesh = newMeshes[0];
-            //     mesh.position = new BABYLON.Vector3(-6, 1.1, -8)
-            //     mesh.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
-            //     mesh.rotation = new BABYLON.Vector3(Math.PI / 2, 0, Math.PI / 2);
 
-            //     // gizmoManager.attachableMeshes = mesh;
-            //     // gizmoManager.attachToMesh(mesh);
-            //     // engine.hideLoadingUI();
-            //     mesh.checkCollisions = true;
-            // }, function (evt) { });
+            BABYLON.SceneLoader.ImportMesh("", "", discordButton, scene, function (newMeshes) {
+                var mesh = newMeshes[1];
+                // var mesh2 = newMeshes[2];
+                console.log(newMeshes);
+                mesh.position = new BABYLON.Vector3(-6, 1.1, -8)
+                mesh.scaling = new BABYLON.Vector3(0.023, 0.023, 0.023);
+                mesh.rotation = new BABYLON.Vector3(0, 0, 0);
+
+                // mesh2.position = new BABYLON.Vector3(-6, 1.1, -28)
+                // mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+                // mesh2.rotation = new BABYLON.Vector3(0, 0, 0);
+                // gizmoManager.attachableMeshes = mesh;
+                // gizmoManager.attachToMesh(mesh);
+                // engine.hideLoadingUI();
+                mesh.checkCollisions = true;
+            }, function (evt) { });
+
 
 
             // var assetsManager = new BABYLON.AssetsManager(scene);
