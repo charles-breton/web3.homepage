@@ -1150,7 +1150,23 @@ export default class Viewer extends Component {
                 button1.paddingBottom = 20;
                 button1.top = 10
                 button1.left = 250
-                button1.paddingLeft = 300;
+                button1.paddingLeft = 200;
+
+
+                const button2 = GUI.Button.CreateImageButton("but1", 'testing', '../assets/plus.svg');
+                button2.width = 0.5;
+                button2.height = 0.1;
+                button2.color = "white";
+                button2.background = "#000";
+                button2.fontSize = 50;
+                button2.fontFamily = fontFamily;
+                button2.paddingBottom = 20;
+                button2.top = 50
+                button2.left = 250
+                button2.paddingLeft = 200;
+
+                advancedTexture03.addControl(button2);
+
 
                 // button1.paddingRight = 40;
 
@@ -1396,7 +1412,7 @@ export default class Viewer extends Component {
                             box.setEnabled(true);
 
                             for (let i = 0; i < nftCards.length; i++) {
-                                nftCards[i].position.y = 2;
+                                nftCards[i].position.y = 1.5;
                             }
 
 
