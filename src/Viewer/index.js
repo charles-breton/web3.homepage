@@ -748,6 +748,81 @@ export default class Viewer extends Component {
 
 
 
+
+            var assetsManager = new BABYLON.AssetsManager(scene);
+
+            assetsManager.onFinish = function (tasks) {
+                start();
+            };
+
+
+
+
+
+            var LoadEntity = function (name, meshNameToLoad, url, file, manager, meshArray, entity_number, props) {
+                var meshTask = manager.addMeshTask(name, meshNameToLoad, url, file);
+                meshTask.onSuccess = function (task) {
+                    console.log("THIS IS GETTING CALLED FOR SURE 1004")
+                    // meshArray[entity_number] = task.loadedMeshes[0];
+                    // meshArray[entity_number].position = BABYLON.Vector3.Zero();
+
+                    // if (props) {
+                    //     if (props.scaling) {
+                    //         meshArray[entity_number].scaling.copyFrom(props.scaling);
+                    //     }
+                    //     if (props.position) {
+                    //         meshArray[entity_number].position.copyFrom(props.position);
+                    //     }
+                    // }
+                }
+            }
+
+
+            var myMesh = [];
+
+
+
+
+            // LoadEntity("logo", "discord", "scr/assets/socials/", "discord.babylon", assetsManager, myMesh, 0);
+
+            // LoadEntity("skull", "test", "scenes/", "skull.babylon", assetsManager, myMesh, 1);
+
+            // assetsManager.load();
+
+            var start = function () {
+                //individual meshes manipulated
+                // var areaSize = 50;
+
+                // var skullMesh = scene.getMeshByName("test");
+                // var logoMesh = scene.getMeshByName("BJS-3D-logo_light.000");
+
+                // //skull
+                // var scale = .25 + Math.random() * .25;
+                // skullMesh.scaling = new BABYLON.Vector3(scale, scale, scale);
+                // skullMesh.position = new BABYLON.Vector3(-areaSize * .5 + Math.random() * areaSize,
+                //     -areaSize * .5 + Math.random() * areaSize,
+                //     -areaSize * .5 + Math.random() * areaSize);
+
+                // //logo
+                // scale = 10 + Math.random() * 10;
+                // logoMesh.scaling = new BABYLON.Vector3(scale, scale, scale);
+                // logoMesh.position = new BABYLON.Vector3(-areaSize * .5 + Math.random() * areaSize,
+                //     -areaSize * .5 + Math.random() * areaSize,
+                //     -areaSize * .5 + Math.random() * areaSize);
+
+                // all meshes rotated
+                scene.registerBeforeRender(function () {
+
+                    // for (var i = 0; i < myMesh.length; i++) {
+
+                    //     myMesh[i].rotation.y += .01;
+
+                    // }
+
+                });
+
+            }
+
             // Create boxes in spaces
             // CreateSpacesBoxes(scene)
             // var box = createSpacesBoxes(scene)
@@ -1069,38 +1144,7 @@ export default class Viewer extends Component {
             });
 
 
-            // MATERIAL FOR SOCIAL MEDIA LOGOS
-            var materialPlane = new BABYLON.StandardMaterial("texturePlane", scene);
-            materialPlane.diffuseTexture = new BABYLON.Texture("https://cdn.vox-cdn.com/thumbor/SfyqZw6l_jidAYdkqYEis-Omdho=/0x0:1680x1050/1200x675/filters:focal(706x391:974x659):no_upscale()/cdn.vox-cdn.com/uploads/chorus_image/image/56414327/YTLogo_old_new_animation.0.gif", scene);
-            materialPlane.specularColor = new BABYLON.Color3(0, 0, 0);
-            materialPlane.intensity = 100000;
-            materialPlane.backFaceCulling = false;//Allways show the front and the back of an element
 
-
-
-
-            // SOCIAL MEDIA LOGOS
-
-
-            var youtubePanel = BABYLON.Mesh.CreatePlane("plane", 2, scene);
-            youtubePanel.rotation.y = -Math.PI / 2;
-            youtubePanel.material = materialPlane;
-            youtubePanel.position = new BABYLON.Vector3(-5, 2, -8)
-
-
-
-
-
-
-
-
-
-            // var modal = document.getElementsByClassName("modal");
-            // var trigger = document.querySelector(".trigger");
-            // var closeButton = document.querySelector(".close-button");
-
-
-            var project01 = ["Longevity Training", "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FmFNrpgu0Hvyq0AfeSGf1Zh%2FLONGEVITY-DESIGN%3Fnode-id%3D0%253A1"];
 
             function toggleModal(data) {
                 localStorage.setItem("modalData", JSON.stringify(data));
@@ -1241,9 +1285,17 @@ export default class Viewer extends Component {
                 sphere: 'This SPHERE is really wonderful!  < br / > < h3 > HTML tags allowed: ) < /h3>'
             }
 
+            var project01 = ["Longevity Training", "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FmFNrpgu0Hvyq0AfeSGf1Zh%2FLONGEVITY-DESIGN%3Fnode-id%3D0%253A1"];
+            var socialsTwitter = ["Twitter", "https://twitter.com/charlesbreton99"];
+            var socialsDiscord = ["Discord", "https://discord.gg/mbzVdDvJ"];
+            var socialsYoutube = ["Youtube", "https://www.youtube.com/channel/UC52MGpFExmuFAL7HBHTEn5w/"];
+            var socialsLinkedin = ["Linkedin", "https://www.linkedin.com/in/charlesbretonlinked/"];
+
+
             scene.onPointerUp = function (evt, pickResult) {
                 if (pickResult.hit) {
                     console.log("pickResult.hit: " + pickResult.pickedMesh.name);
+                    console.log(pickResult.pickedMesh.uniqueId)
                     if (pickResult.pickedMesh.name === "sphere") {
                         console.log("In the list"); // YES! Our mesh is in the list (ground is not there)
                         toggleModal(project01); // If there was no modal before, it will be shown; it there was modal already, it will be invisible
@@ -1251,6 +1303,18 @@ export default class Viewer extends Component {
                         // document.getElementById("iframe_custom").innerHTML = meshContent[pickResult.pickedMesh.name];
                         // You can also use iframe here to display any content. All you need is to bind iframe src value with mesh in our meshContent list
                         // and then change the code above to load the iframe src into the modal
+                    } else if (pickResult.pickedMesh.name === "twitter") {
+                        // toggleModal(socialsTwitter);
+                        window.open(socialsTwitter[1], '_blank').focus();
+                    } else if (pickResult.pickedMesh.name === "youtube") {
+                        // toggleModal(socialsYoutube);
+                        window.open(socialsYoutube[1], '_blank').focus();
+                    } else if (pickResult.pickedMesh.name === "linkedin") {
+                        // toggleModal(socialsLinkedin);
+                        window.open(socialsLinkedin[1], '_blank').focus();
+                    } else if (pickResult.pickedMesh.name === "discord") {
+                        // toggleModal(socialsLinkedin);
+                        window.open(socialsDiscord[1], '_blank').focus();
                     }
                 }
             }
@@ -1259,13 +1323,17 @@ export default class Viewer extends Component {
 
 
 
-            var URL = "https://raw.githubusercontent.com/CharlesBreton99/me-project/master/src/assets/matrix.babylon"
+            var matrixStatue = "https://raw.githubusercontent.com/CharlesBreton99/me-project/master/src/assets/matrix.babylon"
+            var discordButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/discord.babylon";
+            var linkedinButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/linkedin.babylon";
+            var youtubeButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/youtube.babylon";
+            var twitterButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/twitter.babylon";
 
             var matrixMeshSkeleton = null;
 
-            BABYLON.SceneLoader.ImportMesh("", "", URL, scene, function (newMeshes) {
+            BABYLON.SceneLoader.ImportMesh("", "", matrixStatue, scene, function (newMeshes) {
                 var mesh = newMeshes[1];
-                mesh.position = new BABYLON.Vector3(6, 1.1, -8)
+                mesh.position = new BABYLON.Vector3(6, -10, -8)
                 mesh.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
                 mesh.rotation = new BABYLON.Vector3(Math.PI / 2, 0, Math.PI / 2);
 
@@ -1280,33 +1348,230 @@ export default class Viewer extends Component {
                 // console.log(matrixMeshSkeleton)
             }, function (evt) { });
 
+            // async function createSocialButtons() {
+            //     await BABYLON.SceneLoader.ImportMeshAsync("", "", discordButton, scene) 
+            //         // Import meshes (background + logo)
+            //         var mesh1 = newMeshes[1];
+            //         var mesh2 = newMeshes[2];
+            //         // Position meshes properly so you see how its intended (could be improved)
+            //         mesh1.position = new BABYLON.Vector3(7.5, 1, -4)
+            //         mesh1.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+            //         mesh2.position = new BABYLON.Vector3(7.5, 1, -4.04)
+            //         mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
 
+            //         mesh1.rotation = new BABYLON.Vector3(0, Math.PI, 0);
+            //         mesh2.rotation = new BABYLON.Vector3(0, Math.PI, 0);
 
-            // matrixMeshSkeleton.isEnabled(false);
+            //         var newMaterial1 = new BABYLON.StandardMaterial;
+            //         newMaterial1.name = "newMaterial";
+            //         newMaterial1.diffuseColor = new BABYLON.Color3.Black;
+            //         mesh1.material = newMaterial1;
 
+            //         var newMaterial2 = new BABYLON.StandardMaterial;
+            //         newMaterial2.name = "newMaterial";
+            //         newMaterial2.emissiveColor = new BABYLON.Color3.White;
+            //         mesh2.material = newMaterial2;
+            //         mesh1.isPickable = true;
+            //         mesh2.isPickable = true;
+            //         mesh1.checkCollisions = true;
+            //         mesh2.checkCollisions = true;
+            // }
 
-            var discordButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/discord.babylon";
-            var linkedinButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/linkedin.babylon";
-            var twitterButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/twitter.babylon";
-            var youtubeButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/youtube.babylon";
+            // createSocialButtons();
 
 
             BABYLON.SceneLoader.ImportMesh("", "", discordButton, scene, function (newMeshes) {
-                var mesh = newMeshes[1];
-                // var mesh2 = newMeshes[2];
-                console.log(newMeshes);
-                mesh.position = new BABYLON.Vector3(-6, 1.1, -8)
-                mesh.scaling = new BABYLON.Vector3(0.023, 0.023, 0.023);
-                mesh.rotation = new BABYLON.Vector3(0, 0, 0);
+                // Import meshes (background + logo)
+                var mesh1 = newMeshes[1];
+                var mesh2 = newMeshes[2];
 
-                // mesh2.position = new BABYLON.Vector3(-6, 1.1, -28)
-                // mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
-                // mesh2.rotation = new BABYLON.Vector3(0, 0, 0);
-                // gizmoManager.attachableMeshes = mesh;
-                // gizmoManager.attachToMesh(mesh);
-                // engine.hideLoadingUI();
-                mesh.checkCollisions = true;
+                //Setting name if not you won't be able add click event
+                mesh1.name = "discord"
+                mesh2.name = "discord"
+
+                // Position meshes properly so you see how its intended (could be improved)
+                mesh1.position = new BABYLON.Vector3(5.5, 1, -4)
+                mesh1.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+                mesh2.position = new BABYLON.Vector3(5.5, 1, -4.04)
+                mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+
+                // Rotate meshes
+                mesh1.rotation = new BABYLON.Vector3(0, Math.PI, 0);
+                mesh2.rotation = new BABYLON.Vector3(0, Math.PI, 0);
+
+                //Create the materials and assigning it to meshes
+                var newMaterial1 = new BABYLON.StandardMaterial;
+                newMaterial1.name = "newMaterial";
+                newMaterial1.diffuseColor = new BABYLON.Color3.Black;
+                mesh1.material = newMaterial1;
+
+                var newMaterial2 = new BABYLON.StandardMaterial;
+                newMaterial2.name = "newMaterial";
+                newMaterial2.emissiveColor = new BABYLON.Color3.White;
+                mesh2.material = newMaterial2;
+
+                // Create extra needed attributes
+                mesh1.isPickable = true;
+                mesh2.isPickable = true;
+                mesh1.checkCollisions = true;
+                mesh2.checkCollisions = true;
+
+            }, function (evt) {
+            });
+
+
+            BABYLON.SceneLoader.ImportMesh("", "", linkedinButton, scene, function (newMeshes) {
+                // Import meshes (background + logo)
+                var mesh1 = newMeshes[1];
+                var mesh2 = newMeshes[2];
+
+                //Setting name if not you won't be able add click event
+                mesh1.name = "linkedin"
+                mesh2.name = "linkedin"
+
+                // Position meshes properly so you see how its intended (could be improved)
+                mesh1.position = new BABYLON.Vector3(4, 1, -4)
+                mesh1.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+                mesh2.position = new BABYLON.Vector3(4, 1, -4.04)
+                mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+
+                // Rotate meshes
+                mesh1.rotation = new BABYLON.Vector3(0, 2 * Math.PI, 0);
+                mesh2.rotation = new BABYLON.Vector3(0, 2 * Math.PI, 0);
+
+                //Create the materials and assigning it to meshes
+                var newMaterial1 = new BABYLON.StandardMaterial;
+                newMaterial1.name = "newMaterial";
+                newMaterial1.diffuseColor = new BABYLON.Color3.Black;
+                mesh1.material = newMaterial1;
+
+                var newMaterial2 = new BABYLON.StandardMaterial;
+                newMaterial2.name = "newMaterial";
+                newMaterial2.emissiveColor = new BABYLON.Color3.White;
+                mesh2.material = newMaterial2;
+
+
+                // Create extra needed attributes
+                mesh1.checkCollisions = true;
+                mesh2.checkCollisions = true;
+                mesh1.isPickable = true;
+                mesh2.isPickable = true;
+
             }, function (evt) { });
+            // matrixMeshSkeleton.isEnabled(false);
+
+
+            BABYLON.SceneLoader.ImportMesh("", "", twitterButton, scene, function (newMeshes) {
+                // Import meshes (background + logo)
+                var mesh1 = newMeshes[1];
+                var mesh2 = newMeshes[2];
+
+                //Setting name if not you won't be able add click event
+                mesh1.name = "twitter"
+                mesh2.name = "twitter"
+
+                // Position meshes properly so you see how its intended (could be improved)
+                mesh1.position = new BABYLON.Vector3(4, 2.5, -4)
+                mesh1.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+                mesh2.position = new BABYLON.Vector3(4, 2.5, -4.04)
+                mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+
+                // Rotate meshes
+                mesh1.rotation = new BABYLON.Vector3(0, 2 * Math.PI, 0);
+                mesh2.rotation = new BABYLON.Vector3(0, 2 * Math.PI, 0);
+
+                //Create the materials and assigning it to meshes
+                var newMaterial1 = new BABYLON.StandardMaterial;
+                newMaterial1.name = "newMaterial";
+                newMaterial1.diffuseColor = new BABYLON.Color3.Black;
+                mesh1.material = newMaterial1;
+
+                var newMaterial2 = new BABYLON.StandardMaterial;
+                newMaterial2.name = "newMaterial";
+                newMaterial2.emissiveColor = new BABYLON.Color3.White;
+                mesh2.material = newMaterial2;
+
+                // Create extra needed attributes
+                mesh1.checkCollisions = true;
+                mesh2.checkCollisions = true;
+                mesh1.isPickable = true;
+                mesh2.isPickable = true;
+
+            }, function (evt) {
+            });
+
+            BABYLON.SceneLoader.ImportMesh("", "", youtubeButton, scene, function (newMeshes) {
+                // Import meshes (background + logo)
+                var mesh1 = newMeshes[1];
+                var mesh2 = newMeshes[2];
+                var mesh3 = newMeshes[3];
+
+                //Setting name if not you won't be able add click event
+                mesh1.name = "youtube"
+                mesh2.name = "youtube"
+                mesh3.name = "youtube"
+
+
+                // Position meshes properly so you see how its intended (could be improved)
+                mesh1.position = new BABYLON.Vector3(5.5, 2.5, -4)
+                mesh1.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+                mesh2.position = new BABYLON.Vector3(5.5, 2.5, -4.06)
+                mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+                mesh3.position = new BABYLON.Vector3(5.5, 2.5, -4.04)
+                mesh3.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+
+                mesh1.rotation = new BABYLON.Vector3(0, Math.PI, 0);
+                mesh2.rotation = new BABYLON.Vector3(0, Math.PI, Math.PI);
+                mesh3.rotation = new BABYLON.Vector3(0, Math.PI, 0);
+
+                //Create the materials and assigning it to meshes
+                var newMaterial1 = new BABYLON.StandardMaterial;
+                newMaterial1.name = "newMaterial";
+                newMaterial1.diffuseColor = new BABYLON.Color3.Black;
+                mesh1.material = newMaterial1;
+                mesh2.material = newMaterial1;
+
+                var newMaterial2 = new BABYLON.StandardMaterial;
+                newMaterial2.name = "newMaterial";
+                newMaterial2.emissiveColor = new BABYLON.Color3.White;
+                mesh3.material = newMaterial2
+
+                // Create extra needed attributes
+                mesh1.checkCollisions = true;
+                mesh2.checkCollisions = true;
+                mesh3.checkCollisions = true;
+                mesh1.isPickable = true;
+                mesh2.isPickable = true;
+                mesh3.isPickable = true;
+
+            }, function (evt) {
+
+            });
+
+
+
+            // var discordButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/discord.babylon";
+
+            // var twitterButton = "https://raw.githubusercontent.com/CharlesBreton99/official-landing-page/master/src/assets/socials/twitter.babylon";
+
+
+
+            // BABYLON.SceneLoader.ImportMesh("", "", discordButton, scene, function (newMeshes) {
+            //     var mesh = newMeshes[1];
+            //     // var mesh2 = newMeshes[2];
+            //     console.log(newMeshes);
+            //     mesh.position = new BABYLON.Vector3(-6, 1.1, -8)
+            //     mesh.scaling = new BABYLON.Vector3(0.023, 0.023, 0.023);
+            //     mesh.rotation = new BABYLON.Vector3(0, 0, 0);
+
+            //     // mesh2.position = new BABYLON.Vector3(-6, 1.1, -28)
+            //     // mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
+            //     // mesh2.rotation = new BABYLON.Vector3(0, 0, 0);
+            //     // gizmoManager.attachableMeshes = mesh;
+            //     // gizmoManager.attachToMesh(mesh);
+            //     // engine.hideLoadingUI();
+            //     mesh.checkCollisions = true;
+            // }, function (evt) { });
 
 
 
