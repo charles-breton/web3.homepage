@@ -56,7 +56,7 @@ var mouseMin = -35, mouseMax = 100;
 
 // instances of box
 
-var instanceBox = 5;
+var instanceBox = 0;
 
 var firstPersonCameraData;
 
@@ -71,6 +71,7 @@ export default class Viewer extends Component {
         this.onSceneMount = (e) => {
             const { canvas, scene, engine } = e;
 
+            // Create loading screen element to have a more custom experience [Still need some work]
             BABYLON.DefaultLoadingScreen.prototype.displayLoadingUI = function () {
                 if (document.getElementById("customLoadingScreenDiv")) {
                     // Do not add a loading screen if there is already one
@@ -102,19 +103,17 @@ export default class Viewer extends Component {
                 document.body.appendChild(this._loadingDiv);
             };
 
+            // Hide default Loading Screen
             BABYLON.DefaultLoadingScreen.prototype.hideLoadingUI = function () {
                 document.getElementById("customLoadingScreenDiv").style.display = "none";
                 console.log("scene is now loaded");
             }
-            // Add Asset Manager
-            // var assetsManager = new BABYLON.AssetsManager(scene);
 
 
             // SETUP CAMERA
 
             // FREE CAMERA (NON MESH)
             var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 0, 6), scene);
-            // camera.rotation = new BABYLON.Vector3(BABYLON.Tools.ToRadians(180));
             // camera.inputs.clear();
             camera.minZ = 0;
 
@@ -351,15 +350,6 @@ export default class Viewer extends Component {
 
                 engine.hideLoadingUI();
             }, function (evt) { });
-
-
-
-
-
-
-
-
-
 
 
 
