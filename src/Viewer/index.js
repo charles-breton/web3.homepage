@@ -1223,6 +1223,58 @@ export default class Viewer extends Component {
                 return card;
             };
 
+
+
+
+            const createOtherItemCard = (imageUrl, title, position, linkUrl) => {
+                const card = BABYLON.MeshBuilder.CreateBox("detail-card", { height: 3, width: 1.6, depth: 0.2 });
+                card.position = new BABYLON.Vector3(6, 1.5, position);
+                card.rotation = new BABYLON.Vector3(0, Math.PI / 2, 0);
+
+                const plane = BABYLON.MeshBuilder.CreatePlane("plane", { height: 3, width: 2 });
+                plane.position.z = -0.11;
+                plane.position.y = 0.1;
+                plane.parent = card;
+
+                const advancedTexture = GUI.AdvancedDynamicTexture.CreateForMesh(plane, 2 * 512, 3 * 512);
+
+                const panel = new GUI.StackPanel();
+                // panel.verticalAlignment = 0;
+                advancedTexture.addControl(panel);
+
+                const image = new GUI.Image("image", imageUrl);
+                image.height = "900px";
+                image.width = "900px";
+                image.paddingTop = 40;
+                image.paddingLeft = 40;
+                image.paddingRight = 40;
+                panel.addControl(image);
+
+                const button1 = GUI.Button.CreateSimpleButton("but1", title);
+                button1.width = 0.5;
+                button1.height = 0.1;
+                button1.color = "white";
+                button1.background = "#000";
+                button1.fontSize = 50;
+                button1.fontFamily = fontFamily;
+                button1.paddingBottom = 20;
+                button1.top = -630
+                button1.left = 150
+                button1.paddingLeft = 200;
+
+                button1.onPointerUpObservable.add(function () {
+                    console.log("button1 clicked");
+
+                    let displayNft = [title, linkUrl];
+                    toggleModal(displayNft);
+                });
+                advancedTexture.addControl(button1);
+                card.position.y = -10;
+                return card;
+            };
+
+
+
             var matrixNftList = [];
             var nftData01 = [];
             nftData01.title = "MATRIX #2028";
@@ -1236,21 +1288,36 @@ export default class Viewer extends Component {
             nftData02.url = "https://niftys.com/_next/image?url=https%3A%2F%2Fd2yuebc8sj17lc.cloudfront.net%2Ffilters%3Aautojpg()%2Fv2-production-nfts%2F0x28e4b03bc88b59d25f3467b2252b66d4b2c43286-54144&w=3840&q=75"
             nftData02.linkUrl = "https://niftys.com/nft/0x28e4b03bc88b59d25f3467b2252b66d4b2c43286/54144";
 
+            var nftData03 = [];
+            nftData03.title = "Scalp Empire Nestor #484";
+            nftData03.url = "https://jbrwnt6sxfobdnqu6rjezvj4aoqswvdyaydxlegrfttca5o4ma.arweave.net/SGNmz9K_5XBG2FPRSTNU8A6ErVHgGB3WQ0SzmIHXcYI"
+            nftData03.linkUrl = "https://magiceden.io/marketplace/scalp_empire_nestor_edition";
+
 
 
             matrixNftList[0] = nftData01;
             matrixNftList[1] = nftData02;
+            matrixNftList[2] = nftData03;
+
 
 
             var initialPositionY = -10
 
             const createMatrixItemCard = () => {
                 var nftList = [];
+                const counter = 2
                 for (let i = 0; i < matrixNftList.length; i++) {
-                    // createItemCard(matrixNftList[i].url, matrixNftList[i].title, (i * -2) + initialPositionY, matrixNftList[i].linkUrl);
-                    let nftCardData = createItemCard(matrixNftList[i].url, matrixNftList[i].title, (i * -2) + initialPositionY, matrixNftList[i].linkUrl);
-                    // nftCardData.position.y = 0;
-                    // console.log(typeof nftCardData);
+                    let nftCardData = null;
+                    if (!(i >= 2)) {
+                        // createItemCard(matrixNftList[i].url, matrixNftList[i].title, (i * -2) + initialPositionY, matrixNftList[i].linkUrl);
+                        nftCardData = createItemCard(matrixNftList[i].url, matrixNftList[i].title, (i * -2) + initialPositionY, matrixNftList[i].linkUrl);
+                        // nftCardData.position.y = 0;
+                        // console.log(typeof nftCardData);
+
+                    } else {
+                        nftCardData = createOtherItemCard(matrixNftList[i].url, matrixNftList[i].title, (i * -2) + initialPositionY, matrixNftList[i].linkUrl);
+
+                    }
                     nftList.push(nftCardData);
                 }
                 return nftList
