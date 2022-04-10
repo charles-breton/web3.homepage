@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import * as BABYLON from '@babylonjs/core';
-import BabylonScene from '../BabylonScene'; // import the component above linking to file we just created.
-// import "@babylonjs/loaders/glTF";
+import * as GUI from '@babylonjs/gui'
 import '@babylonjs/loaders';
 
-
-import * as GUI from '@babylonjs/gui'
-
+import BabylonScene from '../BabylonScene'; // import the component above linking to file we just created.
 import './index.css';
 
-import Modal from '../components/Modal'
+// import "@babylonjs/loaders/glTF";
+
 
 
 const ybotURL = 'https://raw.githubusercontent.com/TheNosiriN/Babylon-Assets/master/ybot.babylon';
-// const m4URL = 'https://raw.githubusercontent.com/TheNosiriN/Babylon-Assets/master/m4a1.obj';
-// const testing = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/BrainStem/glTF-Embedded/';
 
 var fontFamily = 'Abel';
 
@@ -716,11 +712,6 @@ export default class Viewer extends Component {
 
             }
 
-
-
-
-
-
             scene.onPointerObservable.add((pointerInfo) => {
                 switch (pointerInfo.type) {
                     case BABYLON.PointerEventTypes.POINTERDOWN:
@@ -739,19 +730,11 @@ export default class Viewer extends Component {
                 }
             });
 
-
-
-
-
             var assetsManager = new BABYLON.AssetsManager(scene);
 
             assetsManager.onFinish = function (tasks) {
                 start();
             };
-
-
-
-
 
             var LoadEntity = function (name, meshNameToLoad, url, file, manager, meshArray, entity_number, props) {
                 var meshTask = manager.addMeshTask(name, meshNameToLoad, url, file);
@@ -771,11 +754,7 @@ export default class Viewer extends Component {
                 }
             }
 
-
             var myMesh = [];
-
-
-
 
             // LoadEntity("logo", "discord", "scr/assets/socials/", "discord.babylon", assetsManager, myMesh, 0);
 
@@ -819,19 +798,25 @@ export default class Viewer extends Component {
 
             // Create boxes in spaces
             // CreateSpacesBoxes(scene)
-            // var box = createSpacesBoxes(scene)
+            // // var box = createSpacesBoxes(scene)
+
+            // // addToMirror(box);
+            // // addShadows(box);
+
+            // var box = BABYLON.MeshBuilder.CreateBox("box", { size: 15 }, scene);
+            // box.position = new BABYLON.Vector3(8, 10, -35);
+            // box.checkCollisions = true;
+            // box.setEnabled(false);
 
             // addToMirror(box);
             // addShadows(box);
+            // box.material = new BABYLON.StandardMaterial("lightBox", scene);
+            // box.registerInstancedBuffer("color", 4);
+            // box.instancedBuffers.color = new BABYLON.Color4(1, 1, 1, Math.random());
 
-            var box = BABYLON.MeshBuilder.CreateBox("box", { size: 15 }, scene);
-            box.position = new BABYLON.Vector3(8, 10, -35);
-            box.checkCollisions = true;
-            box.setEnabled(false);
+            // gizmoManager.attachableMeshes = [box];
+            // gizmoManager.attachToMesh(box);
 
-            addToMirror(box);
-            addShadows(box);
-            box.material = new BABYLON.StandardMaterial("lightBox", scene);
 
             // box.alwaysSelectAsActiveMesh = true;
 
@@ -840,14 +825,10 @@ export default class Viewer extends Component {
             // utilLayer.utilityLayerScene.autoClearDepthAndStencil = false;
             // var gizmo = new BABYLON.BoundingBoxGizmo(BABYLON.Color3.FromHexString("#0984e3"), utilLayer)
             // gizmo.attachedMesh = box;
-            gizmoManager.attachableMeshes = [box];
-            gizmoManager.attachToMesh(box);
 
 
             // let instanceCount = instanceBox;
 
-            box.registerInstancedBuffer("color", 4);
-            box.instancedBuffers.color = new BABYLON.Color4(1, 1, 1, Math.random());
 
             // let baseColors = [];
             // let alphas = [];
@@ -1093,6 +1074,25 @@ export default class Viewer extends Component {
             // panel.verticalAlignment = 0;
             // advancedTexture.addControl(panel);
 
+            // Creating our box mesh 
+            var box = BABYLON.MeshBuilder.CreateBox("box", { size: 15 }, scene);
+            box.position = new BABYLON.Vector3(8, 10, -35);
+            box.checkCollisions = true;
+            box.setEnabled(false);
+            addToMirror(box);
+            addShadows(box);
+            box.material = new BABYLON.StandardMaterial("lightBox", scene);
+            box.registerInstancedBuffer("color", 4);
+            box.instancedBuffers.color = new BABYLON.Color4(1, 1, 1, Math.random());
+
+            // Adding our gizmoManager to box
+            gizmoManager.attachableMeshes = [box];
+            gizmoManager.attachToMesh(box);
+
+
+
+
+            // 2D GUI for site Logo
             var advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
             var textblockLogo = new GUI.TextBlock("textLogo");
             textblockLogo.text = "charles \n breton.";
@@ -1103,7 +1103,7 @@ export default class Viewer extends Component {
             textblockLogo.color = "white";
             advancedTexture.addControl(textblockLogo);
 
-
+            // 2D GUI for site enableViewType
             var buttonblockMode = new GUI.Checkbox("checkerMode");
             buttonblockMode.width = "20px";
             buttonblockMode.height = "20px";
@@ -1115,9 +1115,10 @@ export default class Viewer extends Component {
             // buttonblockMode.isChecked = true;
             advancedTexture.addControl(buttonblockMode);
 
-
+            // Creating the logic behind different view type (By using CTRL + X)
             advancedTexture.registerClipboardEvents();
 
+            // Switching from the different view type [WORK IN PROGRESS]
             advancedTexture.onClipboardObservable.add((ev) => {
                 // Copy listener
                 if (ev.type === BABYLON.ClipboardEventTypes.CUT) {
@@ -1139,35 +1140,38 @@ export default class Viewer extends Component {
 
 
 
-
+            // Toggle to open Modal and the data to display
             function toggleModal(data) {
                 localStorage.setItem("modalData", JSON.stringify(data));
                 props.onClose()
-                console.log("this is working")
                 document.exitPointerLock();
-                return <Modal title="My Modal" />
             }
 
 
 
 
-
+            // Create the cards for MATRIX NTFS
             const createItemCard = (imageUrl, title, position, linkUrl) => {
+                // Main mesh (position correction)
                 const card = BABYLON.MeshBuilder.CreateBox("detail-card", { height: 3, width: 1.6, depth: 0.2 });
                 card.position = new BABYLON.Vector3(6, 1.5, position);
                 card.rotation = new BABYLON.Vector3(0, Math.PI / 2, 0);
 
+                // Creating Plane that hold all Advanced Dynamic Texture
                 const plane = BABYLON.MeshBuilder.CreatePlane("plane", { height: 3, width: 1.6 });
                 plane.position.z = -0.11;
                 plane.position.y = -0.0;
                 plane.parent = card;
 
+                // Creating Advanced Dynamic texture for button
                 const advancedTexture03 = GUI.AdvancedDynamicTexture.CreateForMesh(plane, 2 * 512, 3 * 512);
 
+                //Panel to hold information
                 const panel = new GUI.StackPanel();
                 panel.verticalAlignment = 0;
                 advancedTexture03.addControl(panel);
 
+                // Image to load
                 const image = new GUI.Image("image", imageUrl);
                 image.height = "1600px";
                 image.width = "1200px";
@@ -1178,6 +1182,7 @@ export default class Viewer extends Component {
                 panel.addControl(image);
 
 
+                // Create button
                 const button1 = GUI.Button.CreateSimpleButton("but1", title);
                 button1.width = 0.5;
                 button1.height = 0.1;
@@ -1208,9 +1213,8 @@ export default class Viewer extends Component {
 
                 // button1.paddingRight = 40;
 
+                // Functionality to button
                 button1.onPointerUpObservable.add(function () {
-                    console.log("button1 clicked");
-
                     let displayNft = [title, linkUrl];
                     console.log(displayNft)
                     toggleModal(displayNft);
@@ -1219,29 +1223,36 @@ export default class Viewer extends Component {
                 advancedTexture03.addControl(button1);
                 // advancedTexture03.isEnabled(false);
                 // card.isVisible(false);
+
+                // Remove seeing card in initial load
                 card.position.y = -10;
                 return card;
             };
 
 
 
-
+            // Creating the other type of NFT cards
             const createOtherItemCard = (imageUrl, title, position, linkUrl) => {
+                // Main mesh (position correction)
                 const card = BABYLON.MeshBuilder.CreateBox("detail-card", { height: 3, width: 1.6, depth: 0.2 });
                 card.position = new BABYLON.Vector3(6, 1.5, position);
                 card.rotation = new BABYLON.Vector3(0, Math.PI / 2, 0);
 
+                // Creating Plane that hold all Advanced Dynamic Texture
                 const plane = BABYLON.MeshBuilder.CreatePlane("plane", { height: 3, width: 2 });
                 plane.position.z = -0.11;
                 plane.position.y = 0.1;
                 plane.parent = card;
 
+                // Creating Advanced Dynamic texture for button to support 2d gui
                 const advancedTexture = GUI.AdvancedDynamicTexture.CreateForMesh(plane, 2 * 512, 3 * 512);
 
+                //Panel to hold information
                 const panel = new GUI.StackPanel();
                 // panel.verticalAlignment = 0;
                 advancedTexture.addControl(panel);
 
+                // Image to load
                 const image = new GUI.Image("image", imageUrl);
                 image.height = "900px";
                 image.width = "900px";
@@ -1250,6 +1261,7 @@ export default class Viewer extends Component {
                 image.paddingRight = 40;
                 panel.addControl(image);
 
+                // Create button
                 const button1 = GUI.Button.CreateSimpleButton("but1", title);
                 button1.width = 0.5;
                 button1.height = 0.1;
@@ -1262,25 +1274,25 @@ export default class Viewer extends Component {
                 button1.left = 150
                 button1.paddingLeft = 200;
 
+                // Functionality to button
                 button1.onPointerUpObservable.add(function () {
-                    console.log("button1 clicked");
-
                     let displayNft = [title, linkUrl];
                     toggleModal(displayNft);
                 });
                 advancedTexture.addControl(button1);
+
+                // Remove seeing card in initial load
                 card.position.y = -10;
                 return card;
             };
 
 
-
+            // DATA NEEDED FOR NFTS
             var matrixNftList = [];
             var nftData01 = [];
             nftData01.title = "MATRIX #2028";
             nftData01.url = "https://niftys.com/_next/image?url=https%3A%2F%2Fd2yuebc8sj17lc.cloudfront.net%2Ffilters%3Aautojpg()%2Fv2-production-nfts%2F0x423e540cb46db0e4df1ac96bcbddf78a804647d8-2028&w=3840&q=75";
             nftData01.linkUrl = "https://niftys.com/nft/0x423e540cb46db0e4df1ac96bcbddf78a804647d8/2028";
-
 
 
             var nftData02 = [];
@@ -1293,8 +1305,7 @@ export default class Viewer extends Component {
             nftData03.url = "https://jbrwnt6sxfobdnqu6rjezvj4aoqswvdyaydxlegrfttca5o4ma.arweave.net/SGNmz9K_5XBG2FPRSTNU8A6ErVHgGB3WQ0SzmIHXcYI"
             nftData03.linkUrl = "https://magiceden.io/marketplace/scalp_empire_nestor_edition";
 
-
-
+            // STORE ALL NFTS DATA
             matrixNftList[0] = nftData01;
             matrixNftList[1] = nftData02;
             matrixNftList[2] = nftData03;
@@ -1316,12 +1327,12 @@ export default class Viewer extends Component {
 
                     } else {
                         nftCardData = createOtherItemCard(matrixNftList[i].url, matrixNftList[i].title, (i * -2) + initialPositionY, matrixNftList[i].linkUrl);
-
                     }
                     nftList.push(nftCardData);
                 }
                 return nftList
             }
+
             var nftCards = []
             nftCards = createMatrixItemCard();
             createMatrixItemCard();
@@ -1331,9 +1342,7 @@ export default class Viewer extends Component {
 
 
 
-            // Add Objects holder which will redirect to a iframe
-
-
+            // Project Display
             var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {
                 diameter: 2,
                 segments: 32
@@ -1363,7 +1372,7 @@ export default class Viewer extends Component {
             var linkedinMesh = null;
             var youtubeMesh = null;
 
-
+            // Manages event Listeners, checks what you've click then determine
             scene.onPointerUp = function (evt, pickResult) {
                 if (pickResult.hit) {
                     console.log("pickResult.hit: " + pickResult.pickedMesh.name);
@@ -1376,22 +1385,20 @@ export default class Viewer extends Component {
                         // You can also use iframe here to display any content. All you need is to bind iframe src value with mesh in our meshContent list
                         // and then change the code above to load the iframe src into the modal
                     } else if (pickResult.pickedMesh.name === "twitter") {
-                        // toggleModal(socialsTwitter);
                         window.open(socialsTwitter[1], '_blank').focus();
                     } else if (pickResult.pickedMesh.name === "youtube") {
-                        // toggleModal(socialsYoutube);
                         window.open(socialsYoutube[1], '_blank').focus();
                     } else if (pickResult.pickedMesh.name === "linkedin") {
-                        // toggleModal(socialsLinkedin);
                         window.open(socialsLinkedin[1], '_blank').focus();
                     } else if (pickResult.pickedMesh.name === "discord") {
-                        // toggleModal(socialsLinkedin);
                         window.open(socialsDiscord[1], '_blank').focus();
                     }
                 }
             }
 
 
+
+            // Importing 3d mesh of Matrix Avatar
             var matrixMesh = null;
 
             async function createMatrixStatue() {
@@ -1416,57 +1423,8 @@ export default class Viewer extends Component {
 
 
 
-            BABYLON.SceneLoader.ImportMesh("", "", matrixStatue, scene, function (newMeshes) {
-                var mesh = newMeshes[1];
-                mesh.position = new BABYLON.Vector3(6, -10, -8)
-                mesh.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
-                mesh.rotation = new BABYLON.Vector3(Math.PI / 2, 0, Math.PI / 2);
 
-                // gizmoManager.attachableMeshes = mesh;
-                // gizmoManager.attachToMesh(mesh);
-                // engine.hideLoadingUI();
-                mesh.checkCollisions = true;
-
-                // matrixMeshSkeleton = mesh;
-
-                // console.log(mesh)
-                // console.log(matrixMeshSkeleton)
-            }, function (evt) { });
-
-            // async function createSocialButtons() {
-            //     await BABYLON.SceneLoader.ImportMeshAsync("", "", discordButton, scene) 
-            //         // Import meshes (background + logo)
-            //         var mesh1 = newMeshes[1];
-            //         var mesh2 = newMeshes[2];
-            //         // Position meshes properly so you see how its intended (could be improved)
-            //         mesh1.position = new BABYLON.Vector3(7.5, 1, -4)
-            //         mesh1.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
-            //         mesh2.position = new BABYLON.Vector3(7.5, 1, -4.04)
-            //         mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
-
-            //         mesh1.rotation = new BABYLON.Vector3(0, Math.PI, 0);
-            //         mesh2.rotation = new BABYLON.Vector3(0, Math.PI, 0);
-
-            //         var newMaterial1 = new BABYLON.StandardMaterial;
-            //         newMaterial1.name = "newMaterial";
-            //         newMaterial1.diffuseColor = new BABYLON.Color3.Black;
-            //         mesh1.material = newMaterial1;
-
-            //         var newMaterial2 = new BABYLON.StandardMaterial;
-            //         newMaterial2.name = "newMaterial";
-            //         newMaterial2.emissiveColor = new BABYLON.Color3.White;
-            //         mesh2.material = newMaterial2;
-            //         mesh1.isPickable = true;
-            //         mesh2.isPickable = true;
-            //         mesh1.checkCollisions = true;
-            //         mesh2.checkCollisions = true;
-            // }
-
-            // createSocialButtons();
-
-
-
-
+            // Importing Discord Social 3D asset
             async function createDiscordButtons() {
                 return await BABYLON.SceneLoader.ImportMeshAsync("", "", discordButton, scene).then((result) => {
                     let allMeshes = [];
@@ -1511,11 +1469,13 @@ export default class Viewer extends Component {
                 });
             }
 
+            // Creating button asynchronously to reduce performance lag
             createDiscordButtons().then(function (result) {
                 discordMesh = result;
             });
 
 
+            // Importing Twitter Social 3D asset
             async function createTwitterButtons() {
                 return await BABYLON.SceneLoader.ImportMeshAsync("", "", twitterButton, scene).then((result) => {
                     let allMeshes = [];
@@ -1559,11 +1519,12 @@ export default class Viewer extends Component {
                     return allMeshes;
                 });
             }
-
+            // Creating twitter asynchronously to reduce performance lag
             createTwitterButtons().then(function (result) {
                 twitterMesh = result;
             });
 
+            // Importing Linkedin Social 3D asset
             async function createLinkedinButtons() {
                 return await BABYLON.SceneLoader.ImportMeshAsync("", "", linkedinButton, scene).then((result) => {
                     let allMeshes = [];
@@ -1609,12 +1570,12 @@ export default class Viewer extends Component {
                 });
             }
 
+            // Creating linkedin asynchronously to reduce performance lag
             createLinkedinButtons().then(function (result) {
                 linkedinMesh = result;
             });
 
-
-
+            // Importing Youtube Social 3D asset
             async function createYoutubeButtons() {
                 return await BABYLON.SceneLoader.ImportMeshAsync("", "", youtubeButton, scene).then((result) => {
                     let allMeshes = [];
@@ -1666,6 +1627,7 @@ export default class Viewer extends Component {
                 });
             }
 
+            // Creating youtube asynchronously to reduce performance lag
             createYoutubeButtons().then(function (result) {
                 youtubeMesh = result;
             });
@@ -1691,7 +1653,6 @@ export default class Viewer extends Component {
             // panel.position = new BABYLON.Vector3(BABYLON.Tools.ToRadians(180));
 
 
-            var titleHeaders = ["sandbox", "projects", "about"];
 
             // To reset scene to initial position
             var clearMeshes = () => {
@@ -1717,6 +1678,7 @@ export default class Viewer extends Component {
 
 
 
+            var titleHeaders = ["sandbox", "projects", "about"];
 
             // Let's add some buttons!
             var addButton = function () {
@@ -1724,7 +1686,7 @@ export default class Viewer extends Component {
 
                 for (let i = 0; i < titleHeaders.length; i++) {
                     let button = new GUI.Button3D("titles" + i);
-                    button.imageUrl = "../assets/info.png";
+                    // button.imageUrl = "../assets/info.png";
                     // button.imageUrl("../assets/info.png")
                     // addToMirror(button);
 
@@ -1768,6 +1730,7 @@ export default class Viewer extends Component {
                             console.log("NO SELECTION")
                         }
                     });
+
                     let text1 = new GUI.TextBlock();
                     text1.text = titleHeaders[i];
                     text1.color = "#FFFFFF";
