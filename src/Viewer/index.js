@@ -1191,19 +1191,19 @@ export default class Viewer extends Component {
                 button1.paddingLeft = 200;
 
 
-                const button2 = GUI.Button.CreateImageButton("but1", 'testing', '../assets/plus.svg');
-                button2.width = 0.5;
-                button2.height = 0.1;
-                button2.color = "white";
-                button2.background = "#000";
-                button2.fontSize = 50;
-                button2.fontFamily = fontFamily;
-                button2.paddingBottom = 20;
-                button2.top = 50
-                button2.left = 250
-                button2.paddingLeft = 200;
+                // const button2 = GUI.Button.CreateImageButton("but1", 'testing', '../assets/plus.svg');
+                // button2.width = 0.5;
+                // button2.height = 0.1;
+                // button2.color = "white";
+                // button2.background = "#000";
+                // button2.fontSize = 50;
+                // button2.fontFamily = fontFamily;
+                // button2.paddingBottom = 20;
+                // button2.top = 50
+                // button2.left = 250
+                // button2.paddingLeft = 200;
 
-                advancedTexture03.addControl(button2);
+                // advancedTexture03.addControl(button2);
 
 
                 // button1.paddingRight = 40;
@@ -1338,7 +1338,7 @@ export default class Viewer extends Component {
                 diameter: 2,
                 segments: 32
             }, scene);
-            sphere.position = new BABYLON.Vector3(-4, -10, -12);
+            sphere.position = new BABYLON.Vector3(4, -10, -6);
             // sphere.isEnabled
 
 
@@ -1480,9 +1480,9 @@ export default class Viewer extends Component {
                     mesh2.name = "discord"
 
                     // Position meshes properly so you see how its intended (could be improved)
-                    mesh1.position = new BABYLON.Vector3(5.5, -10, -4)
+                    mesh1.position = new BABYLON.Vector3(5.25, -10, -4)
                     mesh1.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
-                    mesh2.position = new BABYLON.Vector3(5.5, -10, -4.04)
+                    mesh2.position = new BABYLON.Vector3(5.25, -10, -4.04)
                     mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
 
                     // Rotate meshes
@@ -1577,9 +1577,9 @@ export default class Viewer extends Component {
                     mesh2.name = "linkedin"
 
                     // Position meshes properly so you see how its intended (could be improved)
-                    mesh1.position = new BABYLON.Vector3(4, -10, -4)
+                    mesh1.position = new BABYLON.Vector3(1.5, -10, -4)
                     mesh1.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
-                    mesh2.position = new BABYLON.Vector3(4, -10, -4.04)
+                    mesh2.position = new BABYLON.Vector3(1.5, -10, -4.04)
                     mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
 
                     // Rotate meshes
@@ -1630,11 +1630,11 @@ export default class Viewer extends Component {
                     mesh3.name = "youtube"
 
                     // Position meshes properly so you see how its intended (could be improved)
-                    mesh1.position = new BABYLON.Vector3(5.5, -10, -4)
+                    mesh1.position = new BABYLON.Vector3(2.75, -10, -4)
                     mesh1.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
-                    mesh2.position = new BABYLON.Vector3(5.5, -10, -4.06)
+                    mesh2.position = new BABYLON.Vector3(2.75, -10, -4.06)
                     mesh2.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
-                    mesh3.position = new BABYLON.Vector3(5.5, -10, -4.04)
+                    mesh3.position = new BABYLON.Vector3(2.75, -10, -4.04)
                     mesh3.scaling = new BABYLON.Vector3(0.0023, 0.0023, 0.0023);
 
                     mesh1.rotation = new BABYLON.Vector3(0, Math.PI, 0);
@@ -1748,15 +1748,15 @@ export default class Viewer extends Component {
                         } else if (info._y > 2.5) {
                             console.log("ABOUT")
                             clearMeshes();
-                            linkedinMesh[0].position.y = 1
-                            linkedinMesh[1].position.y = 1
-                            discordMesh[0].position.y = 1
-                            discordMesh[1].position.y = 1
-                            twitterMesh[0].position.y = 2.5
-                            twitterMesh[1].position.y = 2.5
-                            youtubeMesh[0].position.y = 2.5
-                            youtubeMesh[1].position.y = 2.5
-                            youtubeMesh[2].position.y = 2.5
+                            linkedinMesh[0].position.y = 3.05
+                            linkedinMesh[1].position.y = 3.05
+                            discordMesh[0].position.y = 3.05
+                            discordMesh[1].position.y = 3.05
+                            twitterMesh[0].position.y = 3.05
+                            twitterMesh[1].position.y = 3.05
+                            youtubeMesh[0].position.y = 3.05
+                            youtubeMesh[1].position.y = 3.05
+                            youtubeMesh[2].position.y = 3.05
 
                         } else if (info._y > 1.5 && info._y < 2.5) {
                             console.log("PROJECTS")
@@ -2049,7 +2049,6 @@ function addCrosshair(scene, camera) {
     return reticule
 
 }
-
 
 // function createSpacesBoxes(scene) {
 
